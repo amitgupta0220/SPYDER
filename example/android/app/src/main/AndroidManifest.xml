@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spyder.spyder_example">
    <application
-        android:label="spyder_example"
+        android:label="SPYDER"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:spyder/spyder.dart';
 import 'package:spyder_example/Screens/InfoScreen.dart';
+import 'package:spyder_example/Style/MyColors.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,7 +47,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'Oxygen'),
+      theme: ThemeData(
+        fontFamily: 'Oxygen',
+        accentColor: MyColors.boxBackground,
+      ),
       debugShowCheckedModeBanner: false,
       home: InfoScreen(),
     );
