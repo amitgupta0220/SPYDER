@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spyder_example/Screens/CaesarEncrypt.dart';
 import 'package:spyder_example/Style/MediaQuery.dart';
 import 'package:spyder_example/Style/MyColors.dart';
 
@@ -36,6 +37,7 @@ Although weak on its own, it can be combined with other ciphers, such as a subst
 Blaise de Vigenère actually invented the stronger Autokey cipher in 1586.''',
     '''The Playfair is significantly harder to break since the frequency analysis used for simple substitution ciphers does not work with it. Frequency analysis can still be undertaken, but on the 25*25=625 possible digraphs rather than the 25 possible monographs. Frequency analysis thus requires much more ciphertext in order to work. For a tutorial on breaking Playfair with a simulated annealing algorithm, see Cryptanalysis of the Playfair Cipher.'''
   ];
+  int currentIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,9 @@ Blaise de Vigenère actually invented the stronger Autokey cipher in 1586.''',
                     question: questions[index],
                     content: contents[index],
                     maxHeight: double.parse(maxHeight[index].toString()),
+                    index: index,
+                    currentIndex: currentIndex,
+                    callBack: callBack,
                   );
                 })
           ],
@@ -65,13 +70,28 @@ Blaise de Vigenère actually invented the stronger Autokey cipher in 1586.''',
       ),
     );
   }
+
+  callBack(int index) {
+    setState(() {
+      this.currentIndex = index;
+    });
+  }
 }
 
 class InfoBox extends StatefulWidget {
   final Color color;
   final String question, content;
   final double maxHeight;
-  InfoBox({this.color, this.question, this.content, this.maxHeight});
+  final ValueChanged<int> callBack;
+  final int currentIndex, index;
+  InfoBox(
+      {this.color,
+      this.question,
+      this.content,
+      this.maxHeight,
+      this.callBack,
+      this.currentIndex,
+      this.index});
   @override
   _InfoBoxState createState() => _InfoBoxState();
 }
@@ -83,7 +103,10 @@ class _InfoBoxState extends State<InfoBox> {
     Size size = getSizeOfContext(context);
     return GestureDetector(
       onTap: () {
-        if (varHeight == 80) {
+        print(widget.currentIndex);
+        widget.callBack(widget.index);
+        print(widget.currentIndex);
+        if (varHeight == 80 && widget.currentIndex == widget.index) {
           setState(() {
             varHeight = widget.maxHeight;
           });
@@ -128,20 +151,29 @@ class _InfoBoxState extends State<InfoBox> {
                 height: 5,
               ),
               varHeight == widget.maxHeight
-                  ? Align(
-                      alignment: Alignment.centerRight,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: widget.color),
-                              color: MyColors.boxBackground,
-                              borderRadius: BorderRadius.circular(4)),
-                          alignment: Alignment.center,
-                          height: 20,
-                          width: 50,
-                          child: Text(
-                            "Start",
-                            style: TextStyle(color: widget.color),
-                          )),
+                  ? GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CaesarEncrypt(
+                            color: widget.color,
+                          ),
+                        ));
+                      },
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: widget.color),
+                                color: MyColors.boxBackground,
+                                borderRadius: BorderRadius.circular(4)),
+                            alignment: Alignment.center,
+                            height: 20,
+                            width: 50,
+                            child: Text(
+                              "Start",
+                              style: TextStyle(color: widget.color),
+                            )),
+                      ),
                     )
                   : Container()
             ],
