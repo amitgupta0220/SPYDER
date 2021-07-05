@@ -10,6 +10,7 @@ class CaesarEncrypt extends StatefulWidget {
 }
 
 class _CaesarEncryptState extends State<CaesarEncrypt> {
+  int currentTab = 0;
   @override
   Widget build(BuildContext context) {
     Size size = getSizeOfContext(context);
@@ -33,16 +34,34 @@ class _CaesarEncryptState extends State<CaesarEncrypt> {
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-                Text(
-                  "Encrypt",
-                  style: TextStyle(color: widget.color, fontSize: 17),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      currentTab = 0;
+                    });
+                  },
+                  child: Text(
+                    "Encrypt",
+                    style: TextStyle(
+                        color: currentTab == 0 ? widget.color : MyColors.white,
+                        fontSize: currentTab == 0 ? 17 : 15),
+                  ),
                 ),
                 SizedBox(
                   width: 10,
                 ),
-                Text(
-                  "Decrypt",
-                  style: TextStyle(color: MyColors.white, fontSize: 15),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      currentTab = 1;
+                    });
+                  },
+                  child: Text(
+                    "Decrypt",
+                    style: TextStyle(
+                        color: currentTab == 1 ? widget.color : MyColors.white,
+                        fontSize: currentTab == 0 ? 15 : 17),
+                  ),
                 ),
               ],
             ),
