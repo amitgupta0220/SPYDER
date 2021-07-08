@@ -232,9 +232,13 @@ class _DetailTabState extends State<DetailTab> {
                                     if (_plainTextController.text
                                         .trim()
                                         .isNotEmpty) {
-                                      String result =
-                                          await Spyder.encryptUsingCaesarCipher(
-                                              _plainTextController.text.trim());
+                                      await Spyder.encryptUsingCaesarCipher(
+                                              _plainTextController.text.trim(),
+                                              dropDownShift)
+                                          .then((value) {
+                                        print(value);
+                                        return null;
+                                      });
                                     }
                                   }
                                   break;
@@ -247,10 +251,15 @@ class _DetailTabState extends State<DetailTab> {
                                               _cipherTextController.text
                                                   .trim()) ==
                                           "true") {
-                                        String result =
-                                            await Spyder.encryptUsingHillCipher(
+                                        await Spyder.encryptUsingHillCipher(
                                                 _plainTextController.text
-                                                    .trim());
+                                                    .trim(),
+                                                _keywordTextController.text
+                                                    .trim())
+                                            .then((value) {
+                                          print(value);
+                                          return null;
+                                        });
                                       } else {
                                         //error
                                       }
@@ -262,9 +271,17 @@ class _DetailTabState extends State<DetailTab> {
                                     if (_plainTextController.text
                                         .trim()
                                         .isNotEmpty) {
-                                      String result = await Spyder
-                                          .encryptUsingRailFenceCipher(
-                                              _plainTextController.text.trim());
+                                      await Spyder.encryptUsingRailFenceCipher(
+                                              _plainTextController.text.trim(),
+                                              double.parse(
+                                                      _keywordTextController
+                                                          .text
+                                                          .trim())
+                                                  .toInt())
+                                          .then((value) {
+                                        print(value);
+                                        return null;
+                                      });
                                     }
                                   }
                                   break;
@@ -277,10 +294,15 @@ class _DetailTabState extends State<DetailTab> {
                                               _cipherTextController.text
                                                   .trim()) ==
                                           "true") {
-                                        String result = await Spyder
-                                            .encryptUsingVignereCipher(
+                                        await Spyder.encryptUsingVignereCipher(
                                                 _plainTextController.text
-                                                    .trim());
+                                                    .trim(),
+                                                _keywordTextController.text
+                                                    .trim())
+                                            .then((value) {
+                                          print(value);
+                                          return null;
+                                        });
                                       } else {
                                         //error
                                       }
@@ -296,10 +318,15 @@ class _DetailTabState extends State<DetailTab> {
                                               _cipherTextController.text
                                                   .trim()) ==
                                           "true") {
-                                        String result = await Spyder
-                                            .encryptUsingPlayFairCipher(
+                                        await Spyder.encryptUsingPlayFairCipher(
                                                 _plainTextController.text
-                                                    .trim());
+                                                    .trim(),
+                                                _keywordTextController.text
+                                                    .trim())
+                                            .then((value) {
+                                          print(value);
+                                          return null;
+                                        });
                                       } else {
                                         //error
                                       }
@@ -485,21 +512,137 @@ class _DetailTabState extends State<DetailTab> {
                           SizedBox(
                             height: size.height * 0.03,
                           ),
-                          Container(
-                            width: size.width * 0.3,
-                            height: 45,
-                            alignment: Alignment.centerRight,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: widget.color),
-                            child: Center(
-                                child: Text(
-                              "Decrypt",
-                              style: TextStyle(
-                                  color: MyColors.background,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600),
-                            )),
+                          GestureDetector(
+                            onTap: () async {
+                              switch (widget.selectedTab) {
+                                case 0:
+                                  {
+                                    if (_plainTextController.text
+                                        .trim()
+                                        .isNotEmpty) {
+                                      await Spyder.decryptUsingCaesarCipher(
+                                              _plainTextController.text.trim(),
+                                              double.parse(
+                                                      _keywordTextController
+                                                          .text
+                                                          .trim())
+                                                  .toInt())
+                                          .then((value) {
+                                        print(value);
+                                        return null;
+                                      });
+                                    }
+                                  }
+                                  break;
+                                case 1:
+                                  {
+                                    if (_plainTextController.text
+                                        .trim()
+                                        .isNotEmpty) {
+                                      if (Validation().validationForHillCipher(
+                                              _cipherTextController.text
+                                                  .trim()) ==
+                                          "true") {
+                                        await Spyder.decryptUsingHillCipher(
+                                                _plainTextController.text
+                                                    .trim(),
+                                                _keywordTextController.text
+                                                    .trim())
+                                            .then((value) {
+                                          print(value);
+                                          return null;
+                                        });
+                                      } else {
+                                        //error
+                                      }
+                                    }
+                                  }
+                                  break;
+                                case 2:
+                                  {
+                                    if (_plainTextController.text
+                                        .trim()
+                                        .isNotEmpty) {
+                                      await Spyder.decryptUsingRailFenceCipher(
+                                              _plainTextController.text.trim(),
+                                              double.parse(
+                                                      _keywordTextController
+                                                          .text
+                                                          .trim())
+                                                  .toInt())
+                                          .then((value) {
+                                        print(value);
+                                        return null;
+                                      });
+                                    }
+                                  }
+                                  break;
+                                case 3:
+                                  {
+                                    if (_plainTextController.text
+                                        .trim()
+                                        .isNotEmpty) {
+                                      if (Validation().validationForVignere(
+                                              _cipherTextController.text
+                                                  .trim()) ==
+                                          "true") {
+                                        await Spyder.decryptUsingVignereCipher(
+                                                _plainTextController.text
+                                                    .trim(),
+                                                _keywordTextController.text
+                                                    .trim())
+                                            .then((value) {
+                                          print(value);
+                                          return null;
+                                        });
+                                      } else {
+                                        //error
+                                      }
+                                    }
+                                  }
+                                  break;
+                                case 4:
+                                  {
+                                    if (_plainTextController.text
+                                        .trim()
+                                        .isNotEmpty) {
+                                      if (Validation().validationForPlayFair(
+                                              _cipherTextController.text
+                                                  .trim()) ==
+                                          "true") {
+                                        await Spyder.decryptUsingPlayFairCipher(
+                                                _plainTextController.text
+                                                    .trim(),
+                                                _keywordTextController.text
+                                                    .trim())
+                                            .then((value) {
+                                          print(value);
+                                          return null;
+                                        });
+                                      } else {
+                                        //error
+                                      }
+                                    }
+                                  }
+                                  break;
+                              }
+                            },
+                            child: Container(
+                              width: size.width * 0.3,
+                              height: 45,
+                              alignment: Alignment.centerRight,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: widget.color),
+                              child: Center(
+                                  child: Text(
+                                "Decrypt",
+                                style: TextStyle(
+                                    color: MyColors.background,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600),
+                              )),
+                            ),
                           ),
                           SizedBox(
                             height: size.height * 0.03,
