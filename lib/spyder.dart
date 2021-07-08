@@ -9,69 +9,80 @@ class Spyder {
     return version;
   }
 
-  static Future<String> encryptUsingCaesarCipher(String text, String shift) async {
-    final String encryptedText =
-        await _channel.invokeMethod('encryptUsingCaesarCipher');
+  static Future<String> encryptUsingCaesarCipher(
+      String text, String shift) async {
+    final String encryptedText = await _channel.invokeMethod(
+        'encryptUsingCaesarCipher',
+        <String, dynamic>{'key': shift, 'text': text});
     return encryptedText;
   }
 
-  static Future<String> encryptUsingHillCipher(String text, String key) async {
-    final String encryptedText =
-        await _channel.invokeMethod('encryptUsingHillCipher');
+  static Future<String> encryptUsingHillCipher(
+      String text, List<int> key) async {
+    final String encryptedText = await _channel.invokeMethod(
+        'encryptUsingHillCipher', <String, dynamic>{'key': key, 'text': text});
     return encryptedText;
   }
 
   static Future<String> encryptUsingRailFenceCipher(
       String text, int key) async {
-    final String encryptedText =
-        await _channel.invokeMethod('encryptUsingRailFenceCipher');
+    final String encryptedText = await _channel.invokeMethod(
+        'encryptUsingRailFenceCipher',
+        <String, dynamic>{'key': key, 'text': text});
     return encryptedText;
   }
 
   static Future<String> encryptUsingVignereCipher(
       String text, String key) async {
-    final String encryptedText =
-        await _channel.invokeMethod('encryptUsingVignereCipher');
+    final String encryptedText = await _channel.invokeMethod(
+        'encryptUsingVignereCipher',
+        <String, dynamic>{'key': key, 'text': text});
     return encryptedText;
   }
 
   static Future<String> encryptUsingPlayFairCipher(
       String text, String key) async {
-    final String encryptedText =
-        await _channel.invokeMethod('encryptUsingPlayFairCipher');
+    final String encryptedText = await _channel.invokeMethod(
+        'encryptUsingPlayFairCipher',
+        <String, dynamic>{'key': key, 'text': text});
     return encryptedText;
   }
 
-  static Future<String> decryptUsingCaesarCipher(String text, int shift) async {
-    final String decryptedText =
-        await _channel.invokeMethod('decryptUsingCaesarCipher');
+  static Future<String> decryptUsingCaesarCipher(
+      String text, String shift) async {
+    final String decryptedText = await _channel.invokeMethod(
+        'decryptUsingCaesarCipher',
+        <String, dynamic>{'key': shift, 'text': text});
     return decryptedText;
   }
 
   static Future<String> decryptUsingHillCipher(String text, String key) async {
-    final String decryptedText =
-        await _channel.invokeMethod('decryptUsingHillCipher');
+    final String decryptedText = await _channel.invokeMethod(
+        'decryptUsingHillCipher', <String, dynamic>{'key': key, 'text': text});
     return decryptedText;
   }
 
   static Future<String> decryptUsingRailFenceCipher(
       String text, int key) async {
-    final String decryptedText =
-        await _channel.invokeMethod('decryptUsingRailFenceCipher');
+    final String decryptedText = await _channel.invokeMethod(
+        'decryptUsingRailFenceCipher',
+        <String, dynamic>{'key': key, 'text': text});
     return decryptedText;
   }
 
   static Future<String> decryptUsingVignereCipher(
       String text, String key) async {
-    final String decryptedText =
-        await _channel.invokeMethod('decryptUsingVignereCipher');
+    final String decryptedText = await _channel.invokeMethod(
+        'decryptUsingVignereCipher',
+        <String, dynamic>{'key': key, 'text': text});
     return decryptedText;
   }
 
   static Future<String> decryptUsingPlayFairCipher(
       String text, String key) async {
-    final String decryptedText =
-        await _channel.invokeMethod('decryptUsingPlayFairCipher');
+    final String decryptedText = await _channel.invokeMethod(
+        'decryptUsingPlayFairCipher',
+        <String, dynamic>{'key': key, 'text': text});
     return decryptedText;
   }
 }
