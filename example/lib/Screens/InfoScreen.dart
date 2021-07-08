@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spyder_example/Screens/CaesarEncrypt.dart';
+import 'package:spyder_example/Screens/DetailTab.dart';
 import 'package:spyder_example/Style/MediaQuery.dart';
 import 'package:spyder_example/Style/MyColors.dart';
 
@@ -55,6 +55,7 @@ Blaise de Vigenère actually invented the stronger Autokey cipher in 1586.''',
                 itemCount: 5,
                 itemBuilder: (context, index) {
                   return InfoBox(
+                    selectedIndex: index,
                     color: colors[index % 5],
                     question: questions[index],
                     content: contents[index],
@@ -70,9 +71,11 @@ Blaise de Vigenère actually invented the stronger Autokey cipher in 1586.''',
 
 class InfoBox extends StatefulWidget {
   final Color color;
+  final int selectedIndex;
   final String question, content;
   final double maxHeight;
   InfoBox({
+    this.selectedIndex,
     this.color,
     this.question,
     this.content,
@@ -138,7 +141,10 @@ class _InfoBoxState extends State<InfoBox> {
                   ? GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CaesarEncrypt(
+                          builder: (context) => DetailTab(
+                            selectedTab: widget.selectedIndex,
+                            cipherName: widget.question
+                                .substring(8, widget.question.length - 1),
                             color: widget.color,
                           ),
                         ));
