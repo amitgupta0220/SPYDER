@@ -96,227 +96,300 @@ public class SpyderPlugin implements FlutterPlugin, MethodCallHandler {
             result.success(decrypMsg.toString());
 
         } else if (call.method.equals("encryptUsingHillCipher")) {
-             Map<Character, Integer> char_to_int = new HashMap<Character, Integer>();
-            /* Integer to character map */
-             Map<Integer, Character> int_to_char = new HashMap<Integer, Character>();
-            int[] K = call.argument("key");
-             
+        } else if (call.method.equals("encryptUsingRailFenceCipher")) {
+            String message = call.argument("text");
+            // removing white space from message
+            assert message != null;
+            message = message.replaceAll("\\s", "");
 
-             String m = call.argument("text");
-            if(!verify_input(m, K)){
-                System.out.println("Argument error");
-            }
-            if (m != null) {
-                while(m.length() % K.length != 0)
-                    m += 'a';
-            }
-            for(int i = 0; i < 26; i ++)
-            {
-                char_to_int.put((char) ('a' + i), 0 + i);
-                int_to_char.put(0 + i, (char) ('a' + i));
-            }
+            String keyString = call.argument("key");
+            assert keyString != null;
+            int key = parseInt(keyString);
 
-            int K_det = inv((K[0]*K[3]-K[1]*K[2]) % 26);
-            K_inv = new int[]{K[3], -K[1], -K[2], K[0]};
-            for(int i = 0; i < K_inv.length; i++)
-            {
-                K_inv[i] = K_det * K_inv[i];
-                K_inv[i] = (K_inv[i] + 26) % 26;
-            }
-            int cnt = (int)Math.ceil((double)m.length() / 2);
-            String[] x_substrings = new String[cnt];
-            for(int i = 0, idx = 0; i < m.length(); i+=2)
-            {
-                x_substrings[idx++] = m.substring(i, Math.min(i + 2, m.length()));
-            }
+            char[][] rail = new char[key][message.length()];
+            // matrix
+            for (int i = 0; i < key; i++) {
+                for (int j = 0; j < message.length(); j++) {
+                    rail[i][j] = '.';
+                }
+            } // for
 
-            // Initialize output ciphertext string
-            String y = "";
-
-            // Perform encryption
-            for(int i = 0; i < x_substrings.length; i++)
-            {
-                int x_i = char_to_int.get(x_substrings[i].charAt(0));
-                int x_j = char_to_int.get(x_substrings[i].charAt(1));
-
-                int y_i = x_i * K[0] + x_j * K[2];
-                y_i = (y_i + 26) % 26;
-                int y_j = x_i * K[1] + x_j * K[3];
-                y_j = (y_j + 26) % 26;
-
-                y += int_to_char.get(y_i);
-                y += int_to_char.get(y_j);
-            }
-
-            result.success(y);
-
-
-            //------------------------------------------------
-//            String msg = call.argument("text");
-//            assert msg != null;
-//            msg = msg.replaceAll("\\s", "");
-//            msg = msg.toUpperCase();
-//
-//            // if irregular length, then perform padding
-//            int lenChk = 0;
-//            if (msg.length() % 2 != 0) {
-//                msg += "0";
-//                lenChk = 1;
+//        // testing rail
+//        for (int i = 0; i < key; i++) {
+//            for (int j = 0; j < message.length(); j++) {
+//                System.out.print(rail[i][j]);
 //            }
-//
-//            // message to matrices
-//            int[][] msg2D = new int[2][msg.length()];
-//            int itr1 = 0;
-//            int itr2 = 0;
-//            for (int i = 0; i < msg.length(); i++) {
-//                if (i % 2 == 0) {
-//                    msg2D[0][itr1] = ((int) msg.charAt(i)) - 65;
-//                    itr1++;
-//                } else {
-//                    msg2D[1][itr2] = ((int) msg.charAt(i)) - 65;
-//                    itr2++;
-//                } // if-else
-//            } // for
-//
-////        // testing 2D matrix
-////        for (int i = 0; i < 2; i++) {
-////            for (int j = 0; j < msg.length() / 2; j++) {
-////                System.out.print((char)(msg2D[i][j]+65) + " ");
-////            }
-////            System.out.println();
-////        }
-//
-//            String key = call.argument("key");
-//            assert key != null;
-//            key = key.replaceAll("\\s", "");
-//            key = key.toUpperCase();
-//
-//            int[][] key2D = new int[2][2];
-//            int itr3 = 0;
-//            for (int i = 0; i < 2; i++) {
-//                for (int j = 0; j < 2; j++) {
-//                    key2D[i][j] = (int) key.charAt(itr3) - 65;
-//                    itr3++;
-//                }
+//            System.out.println();
+//        }
+
+            // putting letters in the matrix in zig-zag
+            int row = 0;
+            int check = 0;
+            for (int i = 0; i < message.length(); i++) {
+                if (check == 0) {
+                    rail[row][i] = message.charAt(i);
+                    row++;
+                    if (row == key) {
+                        check = 1;
+                        row--;
+                    }
+                } else if (check == 1) {
+                    row--;
+                    rail[row][i] = message.charAt(i);
+                    if (row == 0) {
+                        check = 0;
+                        row = 1;
+                    }
+                } // if-else
+            } // for
+
+            StringBuilder encrypText = new StringBuilder();
+            for (int i = 0; i < key; i++) {
+                for (int j = 0; j < message.length(); j++) {
+                    encrypText.append(rail[i][j]);
+//                System.out.print(rail[i][j]);
+                }
+//            System.out.println();
+            }
+
+            encrypText = new StringBuilder(encrypText.toString().replaceAll("\\.", ""));
+            result.success(encrypText.toString());
+        } else if (call.method.equals("decryptUsingRailFenceCipher")) {
+            String message = call.argument("text");
+            // removing white space from message
+            message = message.replaceAll("\\s", "");
+
+            String keyString = call.argument("key");
+            int key = parseInt(keyString);
+
+            char[][] rail = new char[key][message.length()];
+            // matrix
+            for (int i = 0; i < key; i++) {
+                for (int j = 0; j < message.length(); j++) {
+                    rail[i][j] = '.';
+                }
+            } // for
+
+            // testing rail
+//        for (int i = 0; i < key; i++) {
+//            for (int j = 0; j < message.length(); j++) {
+//                System.out.print(rail[i][j]);
 //            }
-//
-//            // validating the key
-//            // finding determinant of key matrix
-//            int deter = key2D[0][0] * key2D[1][1] - key2D[0][1] * key2D[1][0];
-//            deter = moduloFunc(deter, 26);
-//            // multiplicative inverse of key matrix
-//            int mulInverse = -1;
-//            for (int i = 0; i < 26; i++) {
-//                int tempInv = deter * i;
-//                if (moduloFunc(tempInv, 26) == 1) {
-//                    mulInverse = i;
-//                    break;
-//                }  // if-else
-//
-//            } // for
-//            if (mulInverse == -1) {
-//                System.out.println("Error");
-//            }
-//
-//            String encrypText = call.argument("text");
-//            int itrCount = msg.length() / 2;
-//            if (lenChk == 0){
-//                // if msg length % 2 = 0
-//                for (int i = 0; i < itrCount; i++) {
-//                    int temp1 = msg2D[0][i] * key2D[0][0] + msg2D[1][i] * key2D[0][1];
-//                    encrypText += (char)((temp1 % 26) + 65);
-//                    int temp2 = msg2D[0][i] * key2D[1][0] + msg2D[1][i] * key2D[1][1];
-//                    encrypText += (char)((temp2 % 26) + 65);
-//                }
-//            } else {
-//                // if msg length % 2 != 0 (irregular length msg)
-//                for (int i = 0; i < itrCount-1; i++) {
-//                    int temp1 = msg2D[0][i] * key2D[0][0] + msg2D[1][i] * key2D[0][1];
-//                    encrypText += (char)((temp1 % 26) + 65);
-//                    int temp2 = msg2D[0][i] * key2D[1][0] + msg2D[1][i] * key2D[1][1];
-//                    encrypText += (char)((temp2 % 26) + 65);
-//                }
-//            }
-//
-//            result.success(encrypText);
-        } else {
+//            System.out.println();
+//        }
+
+            // putting letters in the matrix in zig-zag
+            int row = 0;
+            int check = 0;
+            for (int i = 0; i < message.length(); i++) {
+                if (check == 0) {
+                    rail[row][i] = message.charAt(i);
+                    row++;
+                    if (row == key) {
+                        check = 1;
+                        row--;
+                    }
+                } else if (check == 1) {
+                    row--;
+                    rail[row][i] = message.charAt(i);
+                    if (row == 0) {
+                        check = 0;
+                        row = 1;
+                    }
+                } // if-else
+            } // for
+
+            // changing order of rails
+            int ordr = 0;
+            for (int i = 0; i < key; i++) {
+                for (int j = 0; j < message.length(); j++) {
+                    String temp = rail[i][j] + "";
+                    if (temp.matches("\\.")) {
+                        // skipping in case of '.'
+                        continue;
+                    } else {
+                        // adding cipher letters one by one diagonally
+                        rail[i][j] = message.charAt(ordr);
+                        ordr++;
+                    } // if-else
+                } // inner for
+            } // for
+
+            // checking message reorder on rails
+            for (int i = 0; i < key; i++) {
+                for (int j = 0; j < message.length(); j++) {
+                }
+            }
+
+            String decrypText = "";
+            check = 0;
+            row = 0;
+            // converting rails back into a single line message
+            for (int i = 0; i < message.length(); i++) {
+                if (check == 0) {
+                    decrypText += rail[row][i];
+                    row++;
+                    if (row == key) {
+                        check = 1;
+                        row--;
+                    }
+                } else if (check == 1) {
+                    row--;
+                    decrypText += rail[row][i];
+                    if (row == 0) {
+                        check = 0;
+                        row = 1;
+                    }
+                } // if-else
+            } // for
+
+            result.success(decrypText);
+        } else if (call.method.equals("encryptUsingVignereCipher")) {
+            String message = call.argument("text");
+            String mappedKey = call.argument("key");
+            assert mappedKey != null;
+            mappedKey = mappedKey.toUpperCase();
+            if (message != null) {
+                message = message.toUpperCase();
+            }
+            String keyMap = "";
+            for (int i = 0, j = 0; i < message.length(); i++) {
+                if (message.charAt(i) == (char) 32) {
+                    //ignoring space
+                    keyMap += (char) 32;
+
+                } else {
+                    //mapping letters of key with message
+                    if (j < mappedKey.length()) {
+                        keyMap += mappedKey.charAt(j);
+                        j++;
+                    } else {
+                        //restarting the key from beginning once its length is complete
+                        // and its still not mapped to message
+                        j = 0;
+                        keyMap += mappedKey.charAt(j);
+                        j++; //without incrementing here, key's first letter will be mapped twice
+
+                    }
+                } //if-else
+
+            } //for
+            mappedKey = keyMap;
+            int[][] table = createVigenereTable();
+            StringBuilder encryptedText = new StringBuilder();
+            for (int i = 0; i < message.length(); i++) {
+                if (message.charAt(i) == (char) 32 && mappedKey.charAt(i) == (char) 32) {
+                    encryptedText.append(" ");
+                } else {
+                    //accessing element at table[i][j] position to replace it with letter in message
+                    encryptedText.append((char) table[(int) message.charAt(i) - 65][(int) mappedKey.charAt(i) - 65]);
+                }
+            }
+
+            result.success(encryptedText.toString());
+        } else if (call.method.equals("decryptUsingVignereCipher")) {
+
+            int[][] table = createVigenereTable();
+
+            String message = call.argument("text");
+            String mappedKey = call.argument("key");
+            assert mappedKey != null;
+            mappedKey = mappedKey.toUpperCase();
+            if (message != null) {
+                message = message.toUpperCase();
+            }
+            String keyMap = "";
+            for (int i = 0, j = 0; i < message.length(); i++) {
+                if (message.charAt(i) == (char) 32) {
+                    //ignoring space
+                    keyMap += (char) 32;
+
+                } else {
+                    //mapping letters of key with message
+                    if (j < mappedKey.length()) {
+                        keyMap += mappedKey.charAt(j);
+                        j++;
+                    } else {
+                        //restarting the key from beginning once its length is complete
+                        // and its still not mapped to message
+                        j = 0;
+                        keyMap += mappedKey.charAt(j);
+                        j++; //without incrementing here, key's first letter will be mapped twice
+
+                    }
+                } //if-else
+
+            } //for
+            mappedKey = keyMap;
+            String decryptedText = "";
+
+            for (int i = 0; i < message.length(); i++) {
+                if (message.charAt(i) == (char) 32 && mappedKey.charAt(i) == (char) 32) {
+                    decryptedText += " ";
+                } else {
+                    decryptedText += (char) (65 + itrCount((int) mappedKey.charAt(i), (int) message.charAt(i)));
+                }
+            }
+
+            result.success(decryptedText);
+        }else if(call.method.equals("encryptUsingPlayFairCipher")) {
+            
+        }else {
             result.notImplemented();
         }
     }
-    private static boolean verify_input(String t, int[] K)
-    {
-        // Ensure K only contains four integers > 0 and < 26
-        for(int i = 0; i < K.length; i++)
-        {
-            if(K[i] < 0 || K[i] > 26 || K.length != 4)
-            {
-                System.err.println("Hill cipher key must contain four integers [0,25]!");
-                return false;
+
+    private static int[][] createVigenereTable() {
+        // creating 26x26 table containing alphabets
+        int[][] tableArr = new int[26][26];
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < 26; j++) {
+                int temp;
+                if ((i + 65) + j > 90) {
+                    temp = ((i + 65) + j) - 26;
+                    tableArr[i][j] = temp;
+                } else {
+                    temp = (i + 65) + j;
+                    tableArr[i][j] = temp;
+                }
             }
         }
 
-        // Ensure K is invertible
-        // K is invertible if gcd(K_11*K_22-K_12*K_21, 26) == 1
-        if(gcd(K[0]*K[3]-K[1]*K[2], 26) != 1)
-        {
-            System.err.println("Hill cipher key must be invertible!");
-            return false;
-        }
+        //printing table to check if its correct
+//        for (int i = 0; i < 26; i++) {
+//            for (int j = 0; j < 26; j++) {
+//                System.out.print((char)tableArr[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
 
-        // Ensure plaintext/ciphertext only contains characters
-        if(!t.matches("[a-zA-Z]+"))
-        {
-            System.err.println("Hill cipher plaintext/ciphertext must only contain characters!");
-            return false;
-        }
-
-        return true;
+        return tableArr;
     }
-    private int inv(int a)
-    {
-        // Ensure a is coprime with 26 and multiplicative inverse exists
-        if(gcd(a, 26) != 1)
-        {
-            System.err.println("Input is not coprime with 26! Therefore, input has no multiplicative inverse!");
-            throw new IllegalArgumentException();
+
+    private static int itrCount(int key, int msg) {
+        // this function will return the count which it takes from key's letter to reach cipher letter
+        // and then this count will be used to calculate decryption of encrypted letter in message.
+        int counter = 0;
+        String result = "";
+        for (int i = 0; i < 26; i++) {
+            if (key + i > 90) {
+                //90 being ASCII of Z
+                result += (char) (key + (i - 26));
+
+            } else {
+                result += (char) (key + i);
+            }
         }
 
-        // Use extended Euclidean algorithm to find multiplicative inverse
-        // ax + by = gcd(a,b)
-        // ax + by = 1 mod m
-        // ax = 1 mod m
-        int m = 26, y = 0, x = 1;
-        while(a > 1)
-        {
-            int q = a / m;
-            int t = m;
-
-            m = a % m;
-            a = t;
-            t = y;
-
-            y = x - q * y;
-            x = t;
+        //counting from key's letter to cipher letter in vigenere table
+        for (int i = 0; i < result.length(); i++) {
+            if (result.charAt(i) == msg) {
+                break; // letter found
+            } else {
+                counter++;
+            }
         }
-        x = (x + 26) % 26;
-
-        return x;
-    }
-    private int K_inv[];
-    private static int gcd(int a, int b)
-    {
-        // Use Euclidean algorithm to find gcd
-        if(b == 0)
-            return a;
-
-        return gcd(b, a % b);
-    }
-    public static int moduloFunc(int a, int b) {
-        int result = a % b;
-        if (result < 0) {
-            result += b;
-        }
-        return result;
+        return counter;
     }
 
     @Override

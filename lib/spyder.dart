@@ -17,15 +17,14 @@ class Spyder {
     return encryptedText;
   }
 
-  static Future<String> encryptUsingHillCipher(
-      String text, List<int> key) async {
+  static Future<String> encryptUsingHillCipher(String text, String key) async {
     final String encryptedText = await _channel.invokeMethod(
         'encryptUsingHillCipher', <String, dynamic>{'key': key, 'text': text});
     return encryptedText;
   }
 
   static Future<String> encryptUsingRailFenceCipher(
-      String text, int key) async {
+      String text, String key) async {
     final String encryptedText = await _channel.invokeMethod(
         'encryptUsingRailFenceCipher',
         <String, dynamic>{'key': key, 'text': text});
@@ -63,7 +62,7 @@ class Spyder {
   }
 
   static Future<String> decryptUsingRailFenceCipher(
-      String text, int key) async {
+      String text, String key) async {
     final String decryptedText = await _channel.invokeMethod(
         'decryptUsingRailFenceCipher',
         <String, dynamic>{'key': key, 'text': text});

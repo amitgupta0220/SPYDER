@@ -251,17 +251,9 @@ class _DetailTabState extends State<DetailTab> {
                                     if (Validation().validationForHillCipher(
                                             _keywordTextController.text) ==
                                         "true") {
-                                      List<String> listOfArg;
-                                      List<int> t;
-                                      for (int i = 0;
-                                          i < listOfArg.length;
-                                          i++) {
-                                        t.add(
-                                            double.parse(listOfArg[i]).toInt());
-                                      }
                                       await Spyder.encryptUsingHillCipher(
                                               _plainTextController.text.trim(),
-                                              t)
+                                              _plainTextController.text.trim())
                                           .then((value) {
                                         setState(() {
                                           _decryptedTextController.text = value;
@@ -276,14 +268,13 @@ class _DetailTabState extends State<DetailTab> {
                                   break;
                                 case 2:
                                   if (_plainTextController.text
-                                      .trim()
-                                      .isNotEmpty) {
+                                          .trim()
+                                          .isNotEmpty &&
+                                      _keywordTextController.text.trim() !=
+                                          "1") {
                                     await Spyder.encryptUsingRailFenceCipher(
                                             _plainTextController.text.trim(),
-                                            double.parse(_keywordTextController
-                                                    .text
-                                                    .trim())
-                                                .toInt())
+                                            _keywordTextController.text.trim())
                                         .then((value) {
                                       setState(() {
                                         _decryptedTextController.text = value;
@@ -298,7 +289,7 @@ class _DetailTabState extends State<DetailTab> {
                                       .trim()
                                       .isNotEmpty) {
                                     if (Validation().validationForVignere(
-                                            _cipherTextController.text
+                                            _keywordTextController.text
                                                 .trim()) ==
                                         "true") {
                                       await Spyder.encryptUsingVignereCipher(
@@ -378,7 +369,8 @@ class _DetailTabState extends State<DetailTab> {
                             padding: EdgeInsets.all(14),
                             child: TextField(
                                 controller: _decryptedTextController,
-                                enabled: false,
+                                // enabled: false,
+                                readOnly: true,
                                 decoration: InputDecoration(
                                     filled: true,
                                     hoverColor: Colors.transparent,
@@ -570,15 +562,14 @@ class _DetailTabState extends State<DetailTab> {
                                 case 2:
                                   {
                                     if (_cipherTextController.text
-                                        .trim()
-                                        .isNotEmpty) {
+                                            .trim()
+                                            .isNotEmpty &&
+                                        _keywordTextController.text.trim() !=
+                                            "1") {
                                       await Spyder.decryptUsingRailFenceCipher(
                                               _cipherTextController.text.trim(),
-                                              double.parse(
-                                                      _keywordTextController
-                                                          .text
-                                                          .trim())
-                                                  .toInt())
+                                              _keywordTextController.text
+                                                  .trim())
                                           .then((value) {
                                         setState(() {
                                           _decryptedTextController.text = value;
