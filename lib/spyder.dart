@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
+//Spyder main class includes all encryption and decryption techniques
+
 class Spyder {
   static const MethodChannel _channel = const MethodChannel('spyder');
   static Future<String> get platformVersion async {
@@ -9,6 +11,7 @@ class Spyder {
     return version;
   }
 
+//Caesar Cipher Encryption
   static Future<String> encryptUsingCaesarCipher(
       String text, String shift) async {
     final String encryptedText = await _channel.invokeMethod(
@@ -17,6 +20,7 @@ class Spyder {
     return encryptedText;
   }
 
+//Hill Cipher Encryption
   static Future<String> encryptUsingHillCipher(
       String text, List<int> key) async {
     final String encryptedText = await _channel.invokeMethod(
@@ -24,6 +28,7 @@ class Spyder {
     return encryptedText;
   }
 
+//Railfence Encryption
   static Future<String> encryptUsingRailFenceCipher(
       String text, int key) async {
     final String encryptedText = await _channel.invokeMethod(
@@ -32,6 +37,7 @@ class Spyder {
     return encryptedText;
   }
 
+//Vigenere Cipher Encryption
   static Future<String> encryptUsingVignereCipher(
       String text, String key) async {
     final String encryptedText = await _channel.invokeMethod(
@@ -40,6 +46,7 @@ class Spyder {
     return encryptedText;
   }
 
+//PlayFair Encryption
   static Future<String> encryptUsingPlayFairCipher(
       String text, String key) async {
     final String encryptedText = await _channel.invokeMethod(
@@ -48,6 +55,7 @@ class Spyder {
     return encryptedText;
   }
 
+//Caesar Cipher Decryption
   static Future<String> decryptUsingCaesarCipher(
       String text, String shift) async {
     final String decryptedText = await _channel.invokeMethod(
@@ -56,12 +64,14 @@ class Spyder {
     return decryptedText;
   }
 
+//Hill Cipher Decryption
   static Future<String> decryptUsingHillCipher(String text, String key) async {
     final String decryptedText = await _channel.invokeMethod(
         'decryptUsingHillCipher', <String, dynamic>{'key': key, 'text': text});
     return decryptedText;
   }
 
+//Railfence Decryption
   static Future<String> decryptUsingRailFenceCipher(
       String text, int key) async {
     final String decryptedText = await _channel.invokeMethod(
@@ -70,6 +80,7 @@ class Spyder {
     return decryptedText;
   }
 
+//Vigenere Decryption
   static Future<String> decryptUsingVignereCipher(
       String text, String key) async {
     final String decryptedText = await _channel.invokeMethod(
@@ -78,6 +89,7 @@ class Spyder {
     return decryptedText;
   }
 
+  //PlayFair Cipher Decryption
   static Future<String> decryptUsingPlayFairCipher(
       String text, String key) async {
     final String decryptedText = await _channel.invokeMethod(
