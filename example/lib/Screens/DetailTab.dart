@@ -197,45 +197,80 @@ class _DetailTabState extends State<DetailTab> {
                                           SizedBox(
                                             width: size.width * 0.02,
                                           ),
-                                          Container(
-                                              width: size.width * 0.55,
-                                              margin: EdgeInsets.only(
-                                                  left: size.width * 0.01),
-                                              child: TextField(
-                                                  controller:
-                                                      _keywordTextController,
-                                                  decoration: InputDecoration(
-                                                      filled: true,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      fillColor: Colors.white,
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            width: 1,
-                                                            color:
-                                                                MyColors.white),
-                                                      ),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
+                                          widget.selectedTab == 2
+                                              ? Container(
+                                                  width: size.width * 0.55,
+                                                  margin: EdgeInsets.only(
+                                                      left: size.width * 0.01),
+                                                  child: TextField(
+                                                      controller:
+                                                          _keywordTextController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      decoration:
+                                                          InputDecoration(
+                                                              filled: true,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              fillColor:
+                                                                  Colors.white,
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    width: 1,
+                                                                    color: MyColors
+                                                                        .white),
+                                                              ),
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
                                                                           4)),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            width: 1,
-                                                            color:
-                                                                MyColors.white),
-                                                      ),
-                                                      hintStyle: TextStyle(
-                                                          fontSize: 12,
-                                                          color: Color(
-                                                              0xffB3B3B3)),
-                                                      // hintText: 'abc@def.com',
-                                                      hintText:
-                                                          "Enter a keyword"))),
+                                                              focusedBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    width: 1,
+                                                                    color: MyColors
+                                                                        .white),
+                                                              ),
+                                                              hintStyle: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Color(
+                                                                      0xffB3B3B3)),
+                                                              // hintText: 'abc@def.com',
+                                                              hintText:
+                                                                  "Enter a keyword")))
+                                              : Container(
+                                                  width: size.width * 0.55,
+                                                  margin: EdgeInsets.only(
+                                                      left: size.width * 0.01),
+                                                  child: TextField(
+                                                      controller:
+                                                          _keywordTextController,
+                                                      decoration:
+                                                          InputDecoration(
+                                                              filled: true,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              fillColor:
+                                                                  Colors.white,
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    width: 1,
+                                                                    color: MyColors
+                                                                        .white),
+                                                              ),
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.circular(4)),
+                                                              focusedBorder: OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    width: 1,
+                                                                    color: MyColors
+                                                                        .white),
+                                                              ),
+                                                              hintStyle: TextStyle(fontSize: 12, color: Color(0xffB3B3B3)),
+                                                              // hintText: 'abc@def.com',
+                                                              hintText: "Enter a keyword"))),
                                         ],
                                       ),
                                     ),
@@ -387,45 +422,80 @@ class _DetailTabState extends State<DetailTab> {
                                           SizedBox(
                                             width: size.width * 0.02,
                                           ),
-                                          Container(
-                                              width: size.width * 0.55,
-                                              margin: EdgeInsets.only(
-                                                  left: size.width * 0.01),
-                                              child: TextField(
-                                                  controller:
-                                                      _keywordTextController,
-                                                  decoration: InputDecoration(
-                                                      filled: true,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      fillColor: Colors.white,
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            width: 1,
-                                                            color:
-                                                                MyColors.white),
-                                                      ),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
+                                          widget.selectedTab == 2
+                                              ? Container(
+                                                  width: size.width * 0.55,
+                                                  margin: EdgeInsets.only(
+                                                      left: size.width * 0.01),
+                                                  child: TextField(
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      controller:
+                                                          _keywordTextController,
+                                                      decoration:
+                                                          InputDecoration(
+                                                              filled: true,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              fillColor:
+                                                                  Colors.white,
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    width: 1,
+                                                                    color: MyColors
+                                                                        .white),
+                                                              ),
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
                                                                           4)),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            width: 1,
-                                                            color:
-                                                                MyColors.white),
-                                                      ),
-                                                      hintStyle: TextStyle(
-                                                          fontSize: 12,
-                                                          color: Color(
-                                                              0xffB3B3B3)),
-                                                      // hintText: 'abc@def.com',
-                                                      hintText:
-                                                          "Enter a keyword"))),
+                                                              focusedBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    width: 1,
+                                                                    color: MyColors
+                                                                        .white),
+                                                              ),
+                                                              hintStyle: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Color(
+                                                                      0xffB3B3B3)),
+                                                              // hintText: 'abc@def.com',
+                                                              hintText:
+                                                                  "Enter a keyword")))
+                                              : Container(
+                                                  width: size.width * 0.55,
+                                                  margin: EdgeInsets.only(
+                                                      left: size.width * 0.01),
+                                                  child: TextField(
+                                                      controller:
+                                                          _keywordTextController,
+                                                      decoration:
+                                                          InputDecoration(
+                                                              filled: true,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              fillColor:
+                                                                  Colors.white,
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    width: 1,
+                                                                    color: MyColors
+                                                                        .white),
+                                                              ),
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.circular(4)),
+                                                              focusedBorder: OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    width: 1,
+                                                                    color: MyColors
+                                                                        .white),
+                                                              ),
+                                                              hintStyle: TextStyle(fontSize: 12, color: Color(0xffB3B3B3)),
+                                                              // hintText: 'abc@def.com',
+                                                              hintText: "Enter a keyword"))),
                                         ],
                                       ),
                                     ),
