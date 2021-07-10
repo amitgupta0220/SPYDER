@@ -126,12 +126,10 @@ public class SpyderPlugin implements FlutterPlugin, MethodCallHandler {
         } else if (call.method.equals("encryptUsingAutoKeyCipher")) {
             String plainText = call.argument("text");
             String keyPhrase = call.argument("key");
-
             assert plainText != null;
             plainText = plainText.toUpperCase();
             assert keyPhrase != null;
             keyPhrase = keyPhrase.toUpperCase();
-
             AutoKeyCipher at = new AutoKeyCipher();
             String cipherText = at.toEncrypt(keyPhrase, plainText);
             result.success(cipherText);
@@ -144,7 +142,6 @@ public class SpyderPlugin implements FlutterPlugin, MethodCallHandler {
             cipherText = cipherText.toUpperCase();
             assert keyPhrase != null;
             keyPhrase = keyPhrase.toUpperCase();
-
             AutoKeyCipher at = new AutoKeyCipher();
             String plainText = at.toDecrypt(keyPhrase, cipherText);
 
