@@ -20,6 +20,7 @@ class Spyder {
     return encryptedText;
   }
 
+//Atbash Cipher Encryption
   static Future<String> encryptUsingAtbashCipher(String text) async {
     final String encryptedText = await _channel.invokeMethod(
         'encryptUsingAtbashCipher', <String, dynamic>{'text': text});
@@ -44,7 +45,7 @@ class Spyder {
     return encryptedText;
   }
 
-//PlayFair Encryption
+//AutoKey Cipher Encryption
   static Future<String> encryptUsingAutoKeyCipher(
       String text, String key) async {
     final String encryptedText = await _channel.invokeMethod(
@@ -62,6 +63,7 @@ class Spyder {
     return decryptedText;
   }
 
+//Atbash Cipher decryption
   static Future<String> decryptUsingAtbashCipher(String text) async {
     final String decryptedText = await _channel.invokeMethod(
         'decryptUsingAtbashCipher', <String, dynamic>{'text': text});
@@ -86,7 +88,7 @@ class Spyder {
     return decryptedText;
   }
 
-  //PlayFair Cipher Decryption
+  //Autokey Cipher Decryption
   static Future<String> decryptUsingAutoKeyCipher(
       String text, String key) async {
     final String decryptedText = await _channel.invokeMethod(
