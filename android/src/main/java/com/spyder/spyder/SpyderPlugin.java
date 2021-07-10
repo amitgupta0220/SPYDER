@@ -21,6 +21,8 @@ import io.flutter.plugin.common.MethodChannel.Result;
 
 import static java.lang.Integer.parseInt;
 
+import com.spyder.spyder.CaesarCipher;
+
 /**
  * SpyderPlugin
  */
@@ -47,60 +49,18 @@ public class SpyderPlugin implements FlutterPlugin, MethodCallHandler {
             String keyString = call.argument("key");
             String msg = call.argument("text");
 
-            if (keyString != null) {
-                int key = parseInt(keyString);
-//          int key = call.argument("shift");
+            CaesarCipher ct = new CaesarCipher();
+            String encrypMsg = ct.toEncrypt(msg, keyString);
+            result.success(encrypMsg);
 
-                StringBuilder encrypMsg = new StringBuilder();
-
-                if (msg != null) {
-                    for (int i = 0; i < msg.length(); i++) {
-                        // again casting
-                        if ((int) msg.charAt(i) == 32) {
-                            encrypMsg.append((char) 32); // ignoring space, casting int to char
-
-                        } else if ((int) msg.charAt(i) + key > 122) {
-                            int temp = ((int) msg.charAt(i) + key) - 122;
-                            encrypMsg.append((char) (96 + temp));
-
-                        } else if ((int) msg.charAt(i) + key > 90 && (int) msg.charAt(i) < 96) {
-                            int temp = ((int) msg.charAt(i) + key) - 90;
-                            encrypMsg.append((char) (64 + temp));
-
-                        } else {
-                            encrypMsg.append((char) ((int) msg.charAt(i) + key));
-
-                        }
-                    } // for loop
-                }
-                result.success(encrypMsg.toString());
-            }
         } else if (call.method.equals("decryptUsingCaesarCipher")) {
             String keyString = call.argument("key");
             assert keyString != null;
             int dcyptkey = parseInt(keyString);
-            StringBuilder decrypMsg = new StringBuilder();
             String encypText = call.argument("text");
-            if (encypText != null) {
-                for (int i = 0; i < encypText.length(); i++) {
-                    // now type casting
-                    if ((int) encypText.charAt(i) == 32) {
-                        decrypMsg.append((char) 32);
-                    } else if (((int) encypText.charAt(i) - dcyptkey) < 97 && ((int) encypText.charAt(i) - dcyptkey) > 90) {
-                        //lower case
-                        int temp = ((int) encypText.charAt(i) - dcyptkey) + 26;
-                        decrypMsg.append((char) temp);
-                    } else if ((encypText.charAt(i) - dcyptkey) < 65) {
-                        // upper case
-                        int temp = ((int) encypText.charAt(i) - dcyptkey) + 26;
-                        decrypMsg.append((char) temp);
-                    } else {
-                        decrypMsg.append((char) ((int) encypText.charAt(i) - dcyptkey));
-                    }
-
-                } // for loop
-            }
-            result.success(decrypMsg.toString());
+            CaesarCipher ct = new CaesarCipher();
+            String decrpMsg= ct.toDecrypt(encypText, dcyptkey);
+            result.success(decrpMsg);
 
         } else if (call.method.equals("encryptUsingAtbashCipher")) {
             String input = call.argument("text");
@@ -451,7 +411,6 @@ public class SpyderPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
 
-
     private String stripInvalidCharacters(String input) {
         String filteredValue = "";
 
@@ -480,7 +439,6 @@ public class SpyderPlugin implements FlutterPlugin, MethodCallHandler {
 
         return String.join(" ", words);
     }
-
 
 
     @Override
