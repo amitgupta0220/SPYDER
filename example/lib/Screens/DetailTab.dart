@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spyder/spyder.dart';
+import 'package:spyder_example/SnackBar/SnackBar.dart';
 import 'package:spyder_example/Style/MediaQuery.dart';
 import 'package:spyder_example/Style/MyColors.dart';
 import 'package:spyder_example/Validation/Validation.dart';
@@ -513,6 +514,9 @@ class _DetailTabState extends State<DetailTab> {
             });
             return null;
           });
+        } else {
+          ShowSnackBar()
+              .showSnackBar(content: "Enter valid text", context: context);
         }
 
         break;
@@ -526,12 +530,16 @@ class _DetailTabState extends State<DetailTab> {
             });
             return null;
           });
+        } else {
+          ShowSnackBar()
+              .showSnackBar(content: "Enter valid text", context: context);
         }
 
         break;
       case 2:
         if (_plainTextController.text.trim().isNotEmpty &&
-            _keywordTextController.text.trim() != "1") {
+            _keywordTextController.text.trim() != "1" &&
+            _keywordTextController.text.isNotEmpty) {
           await Spyder.encryptUsingRailFenceCipher(
                   _plainTextController.text.trim(),
                   _keywordTextController.text.trim())
@@ -541,6 +549,9 @@ class _DetailTabState extends State<DetailTab> {
             });
             return null;
           });
+        } else {
+          ShowSnackBar()
+              .showSnackBar(content: "Enter valid text", context: context);
         }
 
         break;
@@ -559,8 +570,13 @@ class _DetailTabState extends State<DetailTab> {
               return null;
             });
           } else {
-            //error
+            ShowSnackBar().showSnackBar(
+                context: context,
+                content: "Length of keyword should be greater than 2");
           }
+        } else {
+          ShowSnackBar().showSnackBar(
+              content: "Enter valid plain text", context: context);
         }
 
         break;
@@ -570,7 +586,7 @@ class _DetailTabState extends State<DetailTab> {
                   _plainTextController.text.trim(),
                   _keywordTextController.text.trim()) ==
               "true") {
-            await Spyder.encryptUsingPlayFairCipher(
+            await Spyder.encryptUsingAutoKeyCipher(
                     _plainTextController.text.trim(),
                     _keywordTextController.text.trim())
                 .then((value) {
@@ -580,8 +596,13 @@ class _DetailTabState extends State<DetailTab> {
               return null;
             });
           } else {
-            //error
+            ShowSnackBar().showSnackBar(
+                content: "Length of keyword and text should be equal",
+                context: context);
           }
+        } else {
+          ShowSnackBar().showSnackBar(
+              content: "Enter valid plain text", context: context);
         }
         break;
     }
@@ -600,6 +621,9 @@ class _DetailTabState extends State<DetailTab> {
               });
               return null;
             });
+          } else {
+            ShowSnackBar()
+                .showSnackBar(content: "Enter valid text", context: context);
           }
         }
         break;
@@ -614,13 +638,17 @@ class _DetailTabState extends State<DetailTab> {
               });
               return null;
             });
+          } else {
+            ShowSnackBar()
+                .showSnackBar(content: "Enter valid text", context: context);
           }
         }
         break;
       case 2:
         {
           if (_cipherTextController.text.trim().isNotEmpty &&
-              _keywordTextController.text.trim() != "1") {
+              _keywordTextController.text.trim() != "1" &&
+              _keywordTextController.text.isNotEmpty) {
             await Spyder.decryptUsingRailFenceCipher(
                     _cipherTextController.text.trim(),
                     _keywordTextController.text.trim())
@@ -630,6 +658,9 @@ class _DetailTabState extends State<DetailTab> {
               });
               return null;
             });
+          } else {
+            ShowSnackBar()
+                .showSnackBar(content: "Enter valid text", context: context);
           }
         }
         break;
@@ -649,8 +680,13 @@ class _DetailTabState extends State<DetailTab> {
                 return null;
               });
             } else {
-              //error
+              ShowSnackBar().showSnackBar(
+                  context: context,
+                  content: "Length of keyword should be greater than 2");
             }
+          } else {
+            ShowSnackBar()
+                .showSnackBar(content: "Enter valid text", context: context);
           }
         }
         break;
@@ -661,7 +697,7 @@ class _DetailTabState extends State<DetailTab> {
                     _cipherTextController.text.trim(),
                     _keywordTextController.text.trim()) ==
                 "true") {
-              await Spyder.decryptUsingPlayFairCipher(
+              await Spyder.decryptUsingAutoKeyCipher(
                       _cipherTextController.text.trim(),
                       _keywordTextController.text.trim())
                   .then((value) {
@@ -671,8 +707,13 @@ class _DetailTabState extends State<DetailTab> {
                 return null;
               });
             } else {
-              //error
+              ShowSnackBar().showSnackBar(
+                  content: "Length of keyword and text should be equal",
+                  context: context);
             }
+          } else {
+            ShowSnackBar()
+                .showSnackBar(content: "Enter valid text", context: context);
           }
         }
         break;

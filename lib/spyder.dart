@@ -45,10 +45,10 @@ class Spyder {
   }
 
 //PlayFair Encryption
-  static Future<String> encryptUsingPlayFairCipher(
+  static Future<String> encryptUsingAutoKeyCipher(
       String text, String key) async {
     final String encryptedText = await _channel.invokeMethod(
-        'encryptUsingPlayFairCipher',
+        'encryptUsingAutoKeyCipher',
         <String, dynamic>{'key': key, 'text': text});
     return encryptedText;
   }
@@ -87,10 +87,10 @@ class Spyder {
   }
 
   //PlayFair Cipher Decryption
-  static Future<String> decryptUsingPlayFairCipher(
+  static Future<String> decryptUsingAutoKeyCipher(
       String text, String key) async {
     final String decryptedText = await _channel.invokeMethod(
-        'decryptUsingPlayFairCipher',
+        'decryptUsingAutoKeyCipher',
         <String, dynamic>{'key': key, 'text': text});
     return decryptedText;
   }

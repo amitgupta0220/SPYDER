@@ -360,7 +360,7 @@ public class SpyderPlugin implements FlutterPlugin, MethodCallHandler {
             }
 
             result.success(decryptedText);
-        } else if (call.method.equals("encryptUsingPlayFairCipher")) {
+        } else if (call.method.equals("encryptUsingAutoKeyCipher")) {
             String plainText = call.argument("text");
             String keyPhrase = call.argument("key");
             StringBuilder cipherText = new StringBuilder();
@@ -374,7 +374,7 @@ public class SpyderPlugin implements FlutterPlugin, MethodCallHandler {
             }
 
             result.success(cipherText.toString());
-        } else if (call.method.equals("decryptUsingPlayFairCipher")) {
+        } else if (call.method.equals("decryptUsingAutoKeyCipher")) {
             String plainText = "";
             String cipherText = call.argument("text");
             String keyPhrase = call.argument("key");
