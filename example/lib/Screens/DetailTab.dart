@@ -181,56 +181,63 @@ class _DetailTabState extends State<DetailTab> {
                                     ],
                                   ),
                                 )
-                              : Padding(
-                                  padding: const EdgeInsets.all(14),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Keyword :",
-                                        style: TextStyle(
-                                            color: MyColors.white,
-                                            fontSize: 20),
+                              : widget.selectedTab == 1
+                                  ? Container()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(14),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "Keyword :",
+                                            style: TextStyle(
+                                                color: MyColors.white,
+                                                fontSize: 20),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                              width: size.width * 0.55,
+                                              margin: EdgeInsets.only(
+                                                  left: size.width * 0.01),
+                                              child: TextField(
+                                                  controller:
+                                                      _keywordTextController,
+                                                  decoration: InputDecoration(
+                                                      filled: true,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      fillColor: Colors.white,
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            width: 1,
+                                                            color:
+                                                                MyColors.white),
+                                                      ),
+                                                      border:
+                                                          OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4)),
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            width: 1,
+                                                            color:
+                                                                MyColors.white),
+                                                      ),
+                                                      hintStyle: TextStyle(
+                                                          fontSize: 12,
+                                                          color: Color(
+                                                              0xffB3B3B3)),
+                                                      // hintText: 'abc@def.com',
+                                                      hintText:
+                                                          "Enter a keyword"))),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        width: size.width * 0.02,
-                                      ),
-                                      Container(
-                                          width: size.width * 0.55,
-                                          margin: EdgeInsets.only(
-                                              left: size.width * 0.01),
-                                          child: TextField(
-                                              controller:
-                                                  _keywordTextController,
-                                              decoration: InputDecoration(
-                                                  filled: true,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  fillColor: Colors.white,
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        width: 1,
-                                                        color: MyColors.white),
-                                                  ),
-                                                  border: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4)),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        width: 1,
-                                                        color: MyColors.white),
-                                                  ),
-                                                  hintStyle: TextStyle(
-                                                      fontSize: 12,
-                                                      color: Color(0xffB3B3B3)),
-                                                  // hintText: 'abc@def.com',
-                                                  hintText:
-                                                      "Enter a keyword"))),
-                                    ],
-                                  ),
-                                ),
+                                    ),
                           SizedBox(
                             height: size.height * 0.03,
                           ),
@@ -364,56 +371,63 @@ class _DetailTabState extends State<DetailTab> {
                                     ],
                                   ),
                                 )
-                              : Padding(
-                                  padding: const EdgeInsets.all(14),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Keyword :",
-                                        style: TextStyle(
-                                            color: MyColors.white,
-                                            fontSize: 20),
+                              : widget.selectedTab == 1
+                                  ? Container()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(14),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "Keyword :",
+                                            style: TextStyle(
+                                                color: MyColors.white,
+                                                fontSize: 20),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                              width: size.width * 0.55,
+                                              margin: EdgeInsets.only(
+                                                  left: size.width * 0.01),
+                                              child: TextField(
+                                                  controller:
+                                                      _keywordTextController,
+                                                  decoration: InputDecoration(
+                                                      filled: true,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      fillColor: Colors.white,
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            width: 1,
+                                                            color:
+                                                                MyColors.white),
+                                                      ),
+                                                      border:
+                                                          OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4)),
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            width: 1,
+                                                            color:
+                                                                MyColors.white),
+                                                      ),
+                                                      hintStyle: TextStyle(
+                                                          fontSize: 12,
+                                                          color: Color(
+                                                              0xffB3B3B3)),
+                                                      // hintText: 'abc@def.com',
+                                                      hintText:
+                                                          "Enter a keyword"))),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        width: size.width * 0.02,
-                                      ),
-                                      Container(
-                                          width: size.width * 0.55,
-                                          margin: EdgeInsets.only(
-                                              left: size.width * 0.01),
-                                          child: TextField(
-                                              controller:
-                                                  _keywordTextController,
-                                              decoration: InputDecoration(
-                                                  filled: true,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  fillColor: Colors.white,
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        width: 1,
-                                                        color: MyColors.white),
-                                                  ),
-                                                  border: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4)),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        width: 1,
-                                                        color: MyColors.white),
-                                                  ),
-                                                  hintStyle: TextStyle(
-                                                      fontSize: 12,
-                                                      color: Color(0xffB3B3B3)),
-                                                  // hintText: 'abc@def.com',
-                                                  hintText:
-                                                      "Enter a keyword"))),
-                                    ],
-                                  ),
-                                ),
+                                    ),
                           SizedBox(
                             height: size.height * 0.03,
                           ),
@@ -457,7 +471,7 @@ class _DetailTabState extends State<DetailTab> {
                             padding: EdgeInsets.all(14),
                             child: TextField(
                                 controller: _decryptedTextController,
-                                enabled: false,
+                                readOnly: true,
                                 decoration: InputDecoration(
                                     filled: true,
                                     hoverColor: Colors.transparent,
@@ -504,30 +518,20 @@ class _DetailTabState extends State<DetailTab> {
         break;
       case 1:
         if (_plainTextController.text.trim().isNotEmpty) {
-          if (Validation()
-                  .validationForHillCipher(_keywordTextController.text) ==
-              "true") {
-            List<String> listOfArg;
-            List<int> t;
-            for (int i = 0; i < listOfArg.length; i++) {
-              t.add(double.parse(listOfArg[i]).toInt());
-            }
-            await Spyder.encryptUsingHillCipher(
-                    _plainTextController.text.trim(), '')
-                .then((value) {
-              setState(() {
-                _decryptedTextController.text = value;
-              });
-              return null;
+          await Spyder.encryptUsingAtbashCipher(
+                  _plainTextController.text.trim())
+              .then((value) {
+            setState(() {
+              _decryptedTextController.text = value;
             });
-          } else {
-            //error
-          }
+            return null;
+          });
         }
 
         break;
       case 2:
-        if (_plainTextController.text.trim().isNotEmpty) {
+        if (_plainTextController.text.trim().isNotEmpty &&
+            _keywordTextController.text.trim() != "1") {
           await Spyder.encryptUsingRailFenceCipher(
                   _plainTextController.text.trim(),
                   _keywordTextController.text.trim())
@@ -543,7 +547,7 @@ class _DetailTabState extends State<DetailTab> {
       case 3:
         if (_plainTextController.text.trim().isNotEmpty) {
           if (Validation()
-                  .validationForVignere(_cipherTextController.text.trim()) ==
+                  .validationForVignere(_keywordTextController.text.trim()) ==
               "true") {
             await Spyder.encryptUsingVignereCipher(
                     _plainTextController.text.trim(),
@@ -562,8 +566,9 @@ class _DetailTabState extends State<DetailTab> {
         break;
       case 4:
         if (_plainTextController.text.trim().isNotEmpty) {
-          if (Validation()
-                  .validationForPlayFair(_cipherTextController.text.trim()) ==
+          if (Validation().validationForAutoKey(
+                  _plainTextController.text.trim(),
+                  _keywordTextController.text.trim()) ==
               "true") {
             await Spyder.encryptUsingPlayFairCipher(
                     _plainTextController.text.trim(),
@@ -601,27 +606,21 @@ class _DetailTabState extends State<DetailTab> {
       case 1:
         {
           if (_cipherTextController.text.trim().isNotEmpty) {
-            if (Validation().validationForHillCipher(
-                    _cipherTextController.text.trim()) ==
-                "true") {
-              await Spyder.decryptUsingHillCipher(
-                      _cipherTextController.text.trim(),
-                      _keywordTextController.text.trim())
-                  .then((value) {
-                setState(() {
-                  _decryptedTextController.text = value;
-                });
-                return null;
+            await Spyder.decryptUsingAtbashCipher(
+                    _cipherTextController.text.trim())
+                .then((value) {
+              setState(() {
+                _decryptedTextController.text = value;
               });
-            } else {
-              //error
-            }
+              return null;
+            });
           }
         }
         break;
       case 2:
         {
-          if (_cipherTextController.text.trim().isNotEmpty) {
+          if (_cipherTextController.text.trim().isNotEmpty &&
+              _keywordTextController.text.trim() != "1") {
             await Spyder.decryptUsingRailFenceCipher(
                     _cipherTextController.text.trim(),
                     _keywordTextController.text.trim())
@@ -658,8 +657,9 @@ class _DetailTabState extends State<DetailTab> {
       case 4:
         {
           if (_cipherTextController.text.trim().isNotEmpty) {
-            if (Validation()
-                    .validationForPlayFair(_cipherTextController.text.trim()) ==
+            if (Validation().validationForAutoKey(
+                    _cipherTextController.text.trim(),
+                    _keywordTextController.text.trim()) ==
                 "true") {
               await Spyder.decryptUsingPlayFairCipher(
                       _cipherTextController.text.trim(),

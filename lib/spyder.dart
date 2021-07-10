@@ -20,9 +20,9 @@ class Spyder {
     return encryptedText;
   }
 
-  static Future<String> encryptUsingHillCipher(String text, String key) async {
+  static Future<String> encryptUsingAtbashCipher(String text) async {
     final String encryptedText = await _channel.invokeMethod(
-        'encryptUsingHillCipher', <String, dynamic>{'key': key, 'text': text});
+        'encryptUsingAtbashCipher', <String, dynamic>{'text': text});
     return encryptedText;
   }
 
@@ -62,10 +62,9 @@ class Spyder {
     return decryptedText;
   }
 
-//Hill Cipher Decryption
-  static Future<String> decryptUsingHillCipher(String text, String key) async {
+  static Future<String> decryptUsingAtbashCipher(String text) async {
     final String decryptedText = await _channel.invokeMethod(
-        'decryptUsingHillCipher', <String, dynamic>{'key': key, 'text': text});
+        'decryptUsingAtbashCipher', <String, dynamic>{'text': text});
     return decryptedText;
   }
 
