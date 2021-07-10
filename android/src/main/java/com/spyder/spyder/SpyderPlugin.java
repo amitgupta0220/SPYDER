@@ -58,6 +58,7 @@ public class SpyderPlugin implements FlutterPlugin, MethodCallHandler {
             assert keyString != null;
             int dcyptkey = parseInt(keyString);
             String encypText = call.argument("text");
+
             CaesarCipher ct = new CaesarCipher();
             String decrpMsg = ct.toDecrypt(encypText, dcyptkey);
             result.success(decrpMsg);
@@ -125,19 +126,18 @@ public class SpyderPlugin implements FlutterPlugin, MethodCallHandler {
         } else if (call.method.equals("encryptUsingAutoKeyCipher")) {
             String plainText = call.argument("text");
             String keyPhrase = call.argument("key");
-            StringBuilder cipherText = new StringBuilder();
+
             assert plainText != null;
             plainText = plainText.toUpperCase();
             assert keyPhrase != null;
             keyPhrase = keyPhrase.toUpperCase();
-            for (int i = 0; i < plainText.length(); i++) {
-                int x = (((plainText.charAt(i) - 'A') + (keyPhrase.charAt(i) - 'A')) % 26);
-                cipherText.append((char) (x + 'A'));
-            }
 
-            result.success(cipherText.toString());
+            AutoKeyCipher at = new AutoKeyCipher();
+            String cipherText = at.toEncrypt(keyPhrase, plainText);
+            result.success(cipherText);
+
         } else if (call.method.equals("decryptUsingAutoKeyCipher")) {
-            String plainText = "";
+
             String cipherText = call.argument("text");
             String keyPhrase = call.argument("key");
             assert cipherText != null;
@@ -145,13 +145,8 @@ public class SpyderPlugin implements FlutterPlugin, MethodCallHandler {
             assert keyPhrase != null;
             keyPhrase = keyPhrase.toUpperCase();
 
-            for (int i = 0; i < cipherText.length(); i++) {
-
-                int x = (((cipherText.charAt(i) - 'A') - (keyPhrase.charAt(i) - 'A')) % 26);
-                x = (x < 0) ? (26 - Math.abs(x)) : x;
-                plainText += (char) (x + 'A');
-                keyPhrase += (char) (x + 'A');
-            }
+            AutoKeyCipher at = new AutoKeyCipher();
+            String plainText = at.toDecrypt(keyPhrase, cipherText);
 
             result.success(plainText);
         } else {
