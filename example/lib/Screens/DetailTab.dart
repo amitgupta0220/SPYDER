@@ -274,7 +274,8 @@ class _DetailTabState extends State<DetailTab> {
                             padding: EdgeInsets.all(14),
                             child: TextField(
                                 controller: _decryptedTextController,
-                                enabled: false,
+                                // enabled: false,
+                                readOnly: true,
                                 decoration: InputDecoration(
                                     filled: true,
                                     hoverColor: Colors.transparent,
@@ -512,7 +513,7 @@ class _DetailTabState extends State<DetailTab> {
               t.add(double.parse(listOfArg[i]).toInt());
             }
             await Spyder.encryptUsingHillCipher(
-                    _plainTextController.text.trim(), t)
+                    _plainTextController.text.trim(), '')
                 .then((value) {
               setState(() {
                 _decryptedTextController.text = value;
@@ -529,7 +530,7 @@ class _DetailTabState extends State<DetailTab> {
         if (_plainTextController.text.trim().isNotEmpty) {
           await Spyder.encryptUsingRailFenceCipher(
                   _plainTextController.text.trim(),
-                  double.parse(_keywordTextController.text.trim()).toInt())
+                  _keywordTextController.text.trim())
               .then((value) {
             setState(() {
               _decryptedTextController.text = value;
@@ -623,7 +624,7 @@ class _DetailTabState extends State<DetailTab> {
           if (_cipherTextController.text.trim().isNotEmpty) {
             await Spyder.decryptUsingRailFenceCipher(
                     _cipherTextController.text.trim(),
-                    double.parse(_keywordTextController.text.trim()).toInt())
+                    _keywordTextController.text.trim())
                 .then((value) {
               setState(() {
                 _decryptedTextController.text = value;
