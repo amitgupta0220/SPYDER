@@ -25,6 +25,12 @@ To use this plugin :
   flutter:
     sdk: flutter
 ```
+
+```
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.20.0"
+```
 ### Encryption, Decryption
 
 ```dart
