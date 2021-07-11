@@ -3,10 +3,10 @@
 Spyder provides fast encryption and decryption techniques to conceal sensitive text data without external interruptions and decode the same.
 At the moment only five cryptography techniques are used :
 Caesar Cipher
-Hill Cipher
+Autobash Cipher
 Rail-fence Cipher
 Vigenere Cipher
-PlayFair Cipher
+Autokey Cipher
 
 ### Screenshots
 
