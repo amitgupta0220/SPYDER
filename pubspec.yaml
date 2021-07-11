@@ -1,8 +1,8 @@
 name: spyder
 description: A new flutter plugin project.
 version: 0.0.1
-author:
-homepage:
+author: Suyash Koltharkar, Amit Gupta, Hemil Patel
+homepage: https://github.com/amitgupta0220/SPYDER
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
