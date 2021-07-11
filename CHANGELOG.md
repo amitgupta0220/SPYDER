@@ -1,3 +1,3 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+- Mobile application for encryption and decryption of text messages written in dart and java.
